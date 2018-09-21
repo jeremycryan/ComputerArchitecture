@@ -13,7 +13,8 @@ module testFullAdder();
 
     initial begin
         $display(" A B Cin | Ben's: SUM Cout | My: SUM Cout");
-
+        $dumpfile("adder.vcd");
+        $dumpvars();
         for (i=0; i<8; i=i+1) begin
             
             a=i%2;
@@ -23,5 +24,6 @@ module testFullAdder();
 
             $display(" %b %b %b   |          %b    %b |       %b    %b", a, b, carryin, sum, carryout, my_sum, my_carryout);
         end
+        $finish();
     end
 endmodule

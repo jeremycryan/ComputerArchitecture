@@ -11,6 +11,9 @@ module testMultiplexer ();
   structuralMultiplexer my_mux (out2, s0, s1, in0, in1, in2, in3);
 
   initial begin
+    $dumpfile("multiplexer.vcd");
+    $dumpvars();
+
     $display(" S0 S1 | I0 I1 I2 I3 | BEN OUT | MY OUT");
     for (i=0;i<64;i=i+1) begin
       in0=i%2;
@@ -21,8 +24,10 @@ module testMultiplexer ();
       s1=i/32%2;
       #500;
       $display("  %b  %b |  %b  %b  %b  %b |       %b |      %b", s0, s1, in0, in1, in2, in3, out, out2);    
+    
+    
     end
-
+    $finish();
 
 
     // Your test code here
