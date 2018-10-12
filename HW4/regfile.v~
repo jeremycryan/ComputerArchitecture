@@ -1,0 +1,44 @@
+`include "mux.v"
+`include "register.v"
+`include "decoder.v"
+
+module regfile
+(
+    output[31:0] ReadData1,
+    output[31:0] ReadData2,
+    input[31:0] WriteData,
+    input[4:0] ReadRegister1,
+    input[4:0] ReadRegister2,
+    input[4:0] WriteRegister,
+    input RegWrite,
+    input Clk
+);
+
+    wire[31:0] outs[31:0];   // Read outputs for each register
+    wire[31:0] enables;      // Enable inputs for each register
+
+    // Generate 32 32-bit registers
+    genvar i;
+    generate
+        for (i = 0; i < 32; i = i + 1) begin
+
+            // Instantiate 32 memory elements
+            register32 regs (q, WriteData, enables[i], Clk);
+
+        end
+    endgenerate
+
+
+
+    // Assign read and write outputs on clock edge
+    always @(posedge Clk) begin
+        if (RegWrite == 1) begin
+       
+	end
+
+        ReadData1 <= outs[ReadRegister1]; // Read from correct index
+        ReadData2 <= outs[ReadRegister2];
+    end
+
+
+endmodule
